@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           // ),
           primarySwatch: Colors.blue,
           fontFamily: 'Poppins',
-          scaffoldBackgroundColor: Color.fromRGBO(25, 25, 38, 100),
+          scaffoldBackgroundColor: Color(0XFF191926),
           textTheme: TextTheme(
             headline1: TextStyle(color: Colors.white),
             headline2: TextStyle(color: Colors.white),

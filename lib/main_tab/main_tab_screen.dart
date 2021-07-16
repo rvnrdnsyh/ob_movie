@@ -27,7 +27,7 @@ class MainTabScreen extends ConsumerWidget {
     return Scaffold(
       body: getScreen(_index),
       bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromRGBO(25, 25, 38, 100),
+          backgroundColor: Color(0XFF191926),
           items: [
             BottomNavigationBarItem(
                 icon: Container(

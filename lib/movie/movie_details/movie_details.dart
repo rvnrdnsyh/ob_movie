@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moviedb/core/models/async_state.dart';
 import 'package:moviedb/movie/movie_details/movie_detail_view_model.dart';
-// import 'package:moviedb/movie/movie_details/widget/movie_detail_cast.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MovieDetails extends StatelessWidget {
@@ -13,7 +12,9 @@ class MovieDetails extends StatelessWidget {
     WidgetsBinding.instance!.addPostFrameCallback((_) =>
         context.read(movieDetailViewModelProvider.notifier).loadData(id));
 
-    return Scaffold(body: Consumer(builder: (context, watch, child) {
+    return Scaffold(
+        backgroundColor: Color(0XFF191926),
+        body: Consumer(builder: (context, watch, child) {
       final state = watch(movieDetailViewModelProvider);
       // print(state.data);
       if (state is Loading) {
@@ -64,10 +65,11 @@ class MovieDetails extends StatelessWidget {
                               color: Colors.transparent,
                             ),
                             child: GestureDetector(
-                              onTap: () => {},
+                              onTap: () => context.read(movieDetailViewModelProvider.notifier).setFavorite(id, state.data),
                               child: Icon(
+                                state.data.favorited ? Icons.favorite_rounded :
                                 Icons.favorite_border_outlined,
-                                color: Colors.white,
+                                color: state.data.favorited ? Colors.pink : Colors.white,
                               ),
                             ))
                       ],

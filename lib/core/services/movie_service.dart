@@ -1,16 +1,21 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:moviedb/core/common/constants.dart';
 import 'package:moviedb/core/models/movie.dart';
 import 'package:moviedb/core/providers/dio_provider.dart';
+import 'package:moviedb/core/providers/storeage_provider.dart';
 
 final movieServiceProvider =
-    Provider((ref) => MovieService(ref.read(dioProvider)));
+    Provider((ref) => MovieService(ref.read(dioProvider), ref.read(storageProvider)));
 
 class MovieService {
   final Dio _dio;
+  final FlutterSecureStorage _secureStorage;
 
-  MovieService(this._dio);
+  MovieService(this._dio, this._secureStorage);
 
   Future<List<Movie>> getPopularMovie(int page) async {
     List<Movie> movies = [];
@@ -128,6 +133,13 @@ class MovieService {
       }
     }
 
+    var favoritedMovie = await _secureStorage.read(key: 'favoritedMovie');
+    var checkFavorited = false;
+    if (favoritedMovie != null) {
+      List<int> favoritedMovieList = List.from(jsonDecode(favoritedMovie.toString()));
+      checkFavorited = favoritedMovieList.contains(params.id);
+    }
+    print(checkFavorited);
     var index = trailers.indexWhere((element) => element.site == 'YouTube');
     var youtubeKey = trailers[index].key;
     var movieDetail = MovieDetails(
@@ -142,6 +154,7 @@ class MovieService {
       params.video,
       params.cast,
       youtubeKey,
+      checkFavorited,
     );
     return movieDetail;
   }

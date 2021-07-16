@@ -39,6 +39,7 @@ class MovieDetailWithCast extends MovieDetailPreVideoAndCast {
 
 class MovieDetails extends MovieDetailWithCast {
   final String trailerPath;
+  final bool favorited;
 
   MovieDetails(
       int id,
@@ -51,7 +52,8 @@ class MovieDetails extends MovieDetailWithCast {
       String synopsis,
       bool video,
       List<MovieCast> cast,
-      this.trailerPath)
+      this.trailerPath,
+      this.favorited)
       : super(id, title, rating, poster, backdrop, genres, voted, synopsis,
             video, cast);
 }
