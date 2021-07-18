@@ -28,10 +28,25 @@ class FavoriteScreen extends StatelessWidget {
       final state = watch(favoriteViewModelProvider);
       if (state is Loading) {
         return Container(
-            height: 400,
+            height: MediaQuery.of(context).size.height,
             width: double.infinity,
             alignment: Alignment.center,
             child: CircularProgressIndicator());
+      } else if (state.data.length == 0) {
+        return Container(
+            height: MediaQuery.of(context).size.height,
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: Center(
+              child: Text(
+                "You don't have a favorite movie",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            )
+        );
       } else {
         return Container(
           child: ListView.builder(
@@ -39,6 +54,7 @@ class FavoriteScreen extends StatelessWidget {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return CardFavoriteMovie(
+                  key: Key(index.toString()),
                   state: state.data[index],
                   index: index,
                   lastIndex: state.data.length - 1,

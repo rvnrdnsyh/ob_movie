@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moviedb/core/models/async_state.dart';
+import 'package:moviedb/core/providers/firebase_analytics_provider.dart';
 import 'package:moviedb/movie/movie_details/movie_detail_view_model.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -9,15 +10,17 @@ class MovieDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final id = ModalRoute.of(context)!.settings.arguments as int;
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      await context.read(analyticsProvider).logEvent(name: 'Movie_Details_screen');
+    });
     WidgetsBinding.instance!.addPostFrameCallback((_) =>
         context.read(movieDetailViewModelProvider.notifier).loadData(id));
-
     return Scaffold(
         backgroundColor: Color(0XFF191926),
         body: Consumer(builder: (context, watch, child) {
       final state = watch(movieDetailViewModelProvider);
       // print(state.data);
-      if (state is Loading) {
+      if ((state is Loading) || (state is Initial)) {
         return Container(
             height: 400,
             width: double.infinity,
@@ -281,7 +284,7 @@ class MovieDetails extends StatelessWidget {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemCount: 4,
+                  itemCount: 5,
                   itemBuilder: (BuildContext contex, int index) {
                     return Column(
                       children: [

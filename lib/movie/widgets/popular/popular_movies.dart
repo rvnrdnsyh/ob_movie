@@ -36,13 +36,16 @@ class PopularMovies extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Container(
                           margin: EdgeInsets.only(top: 5, left: 10),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/movieDetails',
-                                  arguments: state.data[index].id);
-                            },
-                            child: Image.network(state.data[index].poster,
-                                height: 300, width: 150),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/movieDetails',
+                                    arguments: state.data[index].id);
+                              },
+                              child: Image.network(state.data[index].poster,
+                                  height: 300, width: 150),
+                            ),
                           ));
                     }),
               );

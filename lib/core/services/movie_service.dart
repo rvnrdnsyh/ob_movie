@@ -8,8 +8,8 @@ import 'package:moviedb/core/models/movie.dart';
 import 'package:moviedb/core/providers/dio_provider.dart';
 import 'package:moviedb/core/providers/storeage_provider.dart';
 
-final movieServiceProvider =
-    Provider((ref) => MovieService(ref.read(dioProvider), ref.read(storageProvider)));
+final movieServiceProvider = Provider(
+    (ref) => MovieService(ref.read(dioProvider), ref.read(storageProvider)));
 
 class MovieService {
   final Dio _dio;
@@ -85,7 +85,8 @@ class MovieService {
     return movieDetail;
   }
 
-  Future<MovieDetailWithCast> getMovieCast(MovieDetailPreVideoAndCast params) async {
+  Future<MovieDetailWithCast> getMovieCast(
+      MovieDetailPreVideoAndCast params) async {
     List<MovieCast> moviesCast = [];
     var response = await _dio.get(
         '${API_URL}movie/${params.id}/credits?api_key=$API_KEY&language=en-US');
@@ -119,15 +120,16 @@ class MovieService {
   }
 
   Future<MovieDetails> getMovieTrailer(MovieDetailWithCast params) async {
-    List <Trailer> trailers = [];
+    List<Trailer> trailers = [];
     var response = await _dio.get(
         '${API_URL}movie/${params.id}/videos?api_key=$API_KEY&language=en-US');
     if (response.data.length > 0) {
       if (response.data['results'].length > 0) {
         for (var res in response.data['results']) {
           Trailer newTrailer = new Trailer(
-              res['key'],
-              res['site'],);
+            res['key'],
+            res['site'],
+          );
           trailers.add(newTrailer);
         }
       }
@@ -136,7 +138,8 @@ class MovieService {
     var favoritedMovie = await _secureStorage.read(key: 'favoritedMovie');
     var checkFavorited = false;
     if (favoritedMovie != null) {
-      List<int> favoritedMovieList = List.from(jsonDecode(favoritedMovie.toString()));
+      List<int> favoritedMovieList =
+          List.from(jsonDecode(favoritedMovie.toString()));
       checkFavorited = favoritedMovieList.contains(params.id);
     }
     print(checkFavorited);

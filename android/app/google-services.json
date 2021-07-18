@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1041028287813",
+    "project_id": "obmoviestarter",
+    "storage_bucket": "obmoviestarter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041028287813:android:f085ae7a352b840f5dc22c",
+        "android_client_info": {
+          "package_name": "com.drakemd.moviedb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041028287813-632hia02fa8ptasep7thshdaobcaqkgh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drakemd.moviedb",
+            "certificate_hash": "c57feff8433e4945a27e2ab589c939d687449f28"
+          }
+        },
+        {
+          "client_id": "1041028287813-9pm44h8sq89utabh4m24iqorcbe60rec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAevh6cgP_wzizfGYULM-ToXk56NnI-MAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041028287813-9pm44h8sq89utabh4m24iqorcbe60rec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
