@@ -22,13 +22,21 @@
           }
         },
         {
+          "client_id": "1041028287813-s3orerje8efola079kog1nvj24akqv30.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drakemd.moviedb",
+            "certificate_hash": "e99ae261eaebe7ed362331d102a6d05770b0b28d"
+          }
+        },
+        {
           "client_id": "1041028287813-9pm44h8sq89utabh4m24iqorcbe60rec.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAevh6cgP_wzizfGYULM-ToXk56NnI-MAo"
+          "current_key": "AIzaSyBONGTqo3GFVuUBO1b7gAbgSUcwMdH-R_w"
         }
       ],
       "services": {
