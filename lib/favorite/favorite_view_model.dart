@@ -37,7 +37,7 @@ class FavoriteViewModel
     var _newListId = newListId.where((x) => x != id).toList();
     await _secureStorage.write(key: 'favoritedMovie', value: jsonEncode(_newListId));
     var currentState = state.data;
-    var newData = currentState.where((x) => x.id != id).toList();
+    var newData = currentState!.where((x) => x.id != id).toList();
     state = Success(newData);
   }
 }

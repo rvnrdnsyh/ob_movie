@@ -14,7 +14,7 @@ class UpcomingMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 50),
+      padding: EdgeInsets.only(top: 20),
       child: Column(
         children: [
           Consumer(builder: (context, watch, widget) {
@@ -31,7 +31,7 @@ class UpcomingMovies extends StatelessWidget {
                   aspectRatio: 2.0,
                   enlargeCenterPage: true,
                 ),
-                items: renderBanner(state.data),
+                items: renderBanner(state.data!),
               );
             }
           })

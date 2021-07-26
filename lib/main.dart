@@ -3,10 +3,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moviedb/core/providers/firebase_analytics_provider.dart';
-import 'package:moviedb/main_tab/main_tab_screen.dart';
+import 'package:moviedb/core/services/auth_service.dart';
 import 'package:moviedb/movie/movie_details/movie_details.dart';
 
-Future <void> main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(ProviderScope(child: MyApp()));
@@ -15,19 +15,22 @@ Future <void> main() async {
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => MyAppState();
-
 }
 
 class MyAppState extends State {
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
+  final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey(debugLabel: "Main Navigator");
 
-  Future<void> setupInterectedMessage (BuildContext context) async {
+  Future<void> setupInterectedMessage(BuildContext context) async {
     await FirebaseMessaging.instance.getToken();
+    await FirebaseMessaging.instance.subscribeToTopic('all');
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print(message.data);
       if (message.data['path'] != null && message.data['argument'] != null) {
-        var argument = int.tryParse(message.data['argument']) ?? message.data['argument'];
-        navigatorKey.currentState!.pushNamed(message.data['path'], arguments: argument);
+        var argument =
+            int.tryParse(message.data['argument']) ?? message.data['argument'];
+        navigatorKey.currentState!
+            .pushNamed(message.data['path'], arguments: argument);
       } else if (message.data['path'] != null) {
         navigatorKey.currentState!.pushNamed(message.data['path']);
       }
@@ -43,14 +46,8 @@ class MyAppState extends State {
     return MaterialApp(
       navigatorKey: navigatorKey,
       title: 'Movie Data',
-      navigatorObservers: [
-        context.read(observerProvider)
-      ],
+      navigatorObservers: [context.read(observerProvider)],
       theme: ThemeData(
-          // appBarTheme: AppBarTheme(
-          //   shadowColor: Colors.transparent,
-          //   backgroundColor: Colors.transparent,
-          // ),
           primarySwatch: Colors.blue,
           fontFamily: 'Poppins',
           scaffoldBackgroundColor: Color(0XFF191926),
@@ -62,7 +59,7 @@ class MyAppState extends State {
           )),
       initialRoute: '/',
       routes: {
-        '/': (context) => MainTabScreen(),
+        '/': (context) => AuthService().handleAuthStatus(),
         '/movieDetails': (context) => MovieDetails()
       },
     );

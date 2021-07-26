@@ -27,7 +27,7 @@ void main() {
     List<Movie> upcomming = await service.getUpcoming(1, 5);
     print(upcomming.toString());
 
-    expect(upcomming.length, Success(dummyUpcommingList).data.length);
+    expect(upcomming.length, Success(dummyUpcommingList).data!.length);
   });
 
 }
